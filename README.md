@@ -139,12 +139,6 @@ Marks: 45
 Grades: D
 ```
 
-
-Here you go — **a clean, ready-to-upload README.md** that includes your entire explanation + all 10 solutions exactly as you wrote them.
-
-This is formatted professionally for GitHub.
-Just copy–paste into your `README.md`.
-
 ---
 
 # 📊 Sales Data Analysis Using Pure Python
