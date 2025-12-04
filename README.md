@@ -139,160 +139,223 @@ Marks: 45
 Grades: D
 ```
 
----
+
+Here you go — **a clean, ready-to-upload README.md** that includes your entire explanation + all 10 solutions exactly as you wrote them.
+
+This is formatted professionally for GitHub.
+Just copy–paste into your `README.md`.
 
 ---
 
-# ✅ **Sales Data Analysis (Python – No Libraries)**
+# 📊 Sales Data Analysis Using Pure Python
 
-## 📊 Sales Data Analysis (Python)
-
-A beginner-friendly Sales Data Analysis project built using **pure Python only** — no Pandas or external libraries.
-This project helps practice loops, dictionaries, conditions, and basic logic building.
+This project solves **10 important data analysis queries** using **ONLY core Python** (lists, loops, dictionaries).
+No pandas. No numpy. Perfect for beginners learning Python logic & data processing.
 
 ---
+📝 Important Note
 
-## ✨ Features
+⚠ The .ipynb Jupyter Notebook code may not appear correctly on GitHub sometimes.
+If it doesn’t load, you can read the full code directly from this README.
 
-* Input multiple sales records
-* Store:
+## 📁 Dataset
 
-  * Product Name
-  * Price
-  * Quantity
-  * Revenue
-* Calculate:
-
-  * Total Revenue
-  * Highest Sale
-  * Lowest Sale
-  * Average Revenue
-* Filter sales by revenue
-* Search by product name
-
----
-
-## 📂 Data Structure
-
-Each sale:
+Assuming your cleaned data `newData` looks like this:
 
 ```python
-{
-    "Product": "Laptop",
-    "Price": 50000,
-    "Quantity": 2,
-    "Revenue": 100000
-}
+newData = [
+ ['1001', '2023-02-17', 'Rohit Gupta', 'Chair', 'Furniture', 2, 1999],
+ ['1002', '2023-03-04', 'Amit Sharma', 'Marker', 'Stationery', 4, 35],
+ ['1003', '2023-08-31', 'Rahul Mehta', 'Headphones', 'Electronics', 2, 1299]
+]
 ```
 
-All sales:
+Where:
+
+| Index | Meaning  |
+| ----- | -------- |
+| 0     | OrderID  |
+| 1     | Date     |
+| 2     | Customer |
+| 3     | Product  |
+| 4     | Category |
+| 5     | Quantity |
+| 6     | Price    |
+
+---
+
+# ✅ 1. **Total revenue from all sales**
+
+Revenue = Quantity × Price
 
 ```python
-sales_data = []
+total_revenue = 0
+for row in newData:
+    total_revenue += row[5] * row[6]
+
+print(total_revenue)
 ```
 
 ---
 
-## 🧾 Project Code
+# ✅ 2. **Total orders placed**
 
 ```python
-# Number of sales entries
-n = int(input("Enter number of sales records: "))
-sales_data = []
-
-# Input
-for i in range(n):
-    print(f"\nRecord {i+1}")
-    product = input("Product Name: ")
-    price = int(input("Price: "))
-    quantity = int(input("Quantity: "))
-    revenue = price * quantity
-
-    record = {
-        "Product": product,
-        "Price": price,
-        "Quantity": quantity,
-        "Revenue": revenue
-    }
-
-    sales_data.append(record)
-
-# Total Revenue
-total_rev = 0
-for s in sales_data:
-    total_rev += s["Revenue"]
-
-print("\nTotal Revenue:", total_rev)
-
-# Highest & Lowest Revenue
-highest = sales_data[0]
-lowest = sales_data[0]
-
-for s in sales_data:
-    if s["Revenue"] > highest["Revenue"]:
-        highest = s
-    if s["Revenue"] < lowest["Revenue"]:
-        lowest = s
-
-print("\nHighest Sale:", highest)
-print("Lowest Sale:", lowest)
-
-# Average Revenue
-avg_rev = total_rev / len(sales_data)
-print("\nAverage Revenue:", avg_rev)
-
-# Filter: Sales above a limit
-limit = int(input("\nShow sales above revenue: "))
-for s in sales_data:
-    if s["Revenue"] > limit:
-        print(s)
-
-# Search by Product Name
-search_item = input("\nSearch product: ")
-for s in sales_data:
-    if s["Product"].lower() == search_item.lower():
-        print(s)
+total_orders = len(newData)
+print(total_orders)
 ```
 
 ---
 
-## 🛠 Technologies Used
+# ✅ 3. **Total quantity sold**
 
-* Python (built-in)
-* Lists
-* Dictionaries
-* Loops
-* Conditional logic
+```python
+total_quantity = 0
+for row in newData:
+    total_quantity += row[5]
 
----
-
-## 🚀 How to Run
-
-```
-python sales_analysis.py
+print(total_quantity)
 ```
 
 ---
 
-## 📸 Sample Output
+# ✅ 4. **Total revenue by each category**
 
-```
-Enter number of sales records: 2
+```python
+category_revenue = {}
 
-Record 1
-Product Name: Laptop
-Price: 50000
-Quantity: 2
+for row in newData:
+    cat = row[4]
+    revenue = row[5] * row[6]
 
-Record 2
-Product Name: Mouse
-Price: 500
-Quantity: 10
+    if cat not in category_revenue:
+        category_revenue[cat] = 0
+    category_revenue[cat] += revenue
 
-Total Revenue: 110000
-Highest Sale: {'Product': 'Laptop', 'Price': 50000, 'Quantity': 2, 'Revenue': 100000}
-Lowest Sale: {'Product': 'Mouse', 'Price': 500, 'Quantity': 10, 'Revenue': 5000}
+print(category_revenue)
 ```
 
 ---
+
+# ✅ 5. **Total revenue by each product**
+
+```python
+product_revenue = {}
+
+for row in newData:
+    product = row[3]
+    revenue = row[5] * row[6]
+
+    if product not in product_revenue:
+        product_revenue[product] = 0
+    product_revenue[product] += revenue
+
+print(product_revenue)
+```
+
+---
+
+# ✅ 6. **Product with highest quantity sold**
+
+```python
+product_quantity = {}
+
+for row in newData:
+    product = row[3]
+    qty = row[5]
+
+    if product not in product_quantity:
+        product_quantity[product] = 0
+    product_quantity[product] += qty
+
+max_product = max(product_quantity, key=product_quantity.get)
+
+print(max_product, product_quantity[max_product])
+```
+
+---
+
+# ✅ 7. **Customer who spent the most**
+
+```python
+customer_spend = {}
+
+for row in newData:
+    customer = row[2]
+    revenue = row[5] * row[6]
+
+    if customer not in customer_spend:
+        customer_spend[customer] = 0
+    customer_spend[customer] += revenue
+
+top_customer = max(customer_spend, key=customer_spend.get)
+
+print(top_customer, customer_spend[top_customer])
+```
+
+---
+
+# ✅ 8. **Total revenue per date**
+
+```python
+date_revenue = {}
+
+for row in newData:
+    date = row[1]
+    revenue = row[5] * row[6]
+
+    if date not in date_revenue:
+        date_revenue[date] = 0
+    date_revenue[date] += revenue
+
+print(date_revenue)
+```
+
+---
+
+# ✅ 9. **Total revenue between two dates**
+
+Example input:
+
+```python
+start_date = "2023-03-01"
+end_date = "2023-08-31"
+```
+
+Code:
+
+```python
+total = 0
+
+for row in newData:
+    date = row[1]
+
+    if start_date <= date <= end_date:
+        total += row[5] * row[6]
+
+print(total)
+```
+
+---
+
+# ✅ 10. **Export 'Electronics' category to CSV (without pandas)**
+
+```python
+electronics = []
+
+for row in newData:
+    if row[4] == "Electronics":
+        electronics.append(row)
+
+with open("electronics.csv", "w") as f:
+    f.write("OrderID,Date,Customer,Product,Category,Quantity,Price\n")
+    for row in electronics:
+        line = ",".join([str(item) for item in row])
+        f.write(line + "\n")
+```
+
+---
+
+# 🎉 Done!
+
 
